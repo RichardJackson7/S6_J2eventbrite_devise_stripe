@@ -1,0 +1,32 @@
+<h1>Find all of the events here!</h1><br>
+
+<h3> Futures events </h3> <br>
+<% @events.each do |event| %>
+	<% if event.date >= Date.today %>
+	
+	<strong><p>Description: <%= event.description %></p></strong>
+	<p>Date event: <%= event.date %></p>
+	<p>Event place: <%= event.place %></p>
+	<p>Creator : <%= event.creator.username %> </p>
+	<p><%= link_to "See the Event", event, {:action=>"show", :controller=>"events"} %></p>
+
+ -------------------------------
+  <br>
+	<%end%>
+<%end%>
+
+<br>
+<h3> Past events </h3> <br>
+<% @events.each do |event| %>
+	<% if event.date < Date.today %>
+	
+	<strong><p>Description: <%= event.description %></p></strong>
+	<p>Date event: <%= event.date %></p>
+	<p>Event place: <%= event.place %></p>
+	<p>Créateur : <%= event.creator.username %> </p>
+	<p><%= link_to "See the Event", event, {:action=>"show", :controller=>"events"} %></p>
+
+ -------------------------------
+  <br>
+	<%end%>
+<%end%>

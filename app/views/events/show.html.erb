@@ -1,0 +1,42 @@
+<h2>Clique To Participate</h2>
+
+<div>
+<strong> Description: <%= @event.description %> </strong>
+<p> Lieu : <%= @event.place %> </p>
+<p> Date : <%= @event.date.strftime("%d-%m-%Y") %> </p>
+<p> Creator : <%= @event.creator.username %> </p>
+</div>
+ 
+ <div>
+ <strong> List of Participants </strong>
+	<% @event.attendees.each do |attendee| %> 
+	    <p> <%= attendee.username %> </p> 
+	    <p> <%= attendee.email %> </p>
+	    <p> <%= link_to 'See Profile', user_path(attendee) %> </p> <br>
+	<%end%>
+</div>
+<br>
+
+<% if @event.date >= Date.today %>
+	<%= form_tag  do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+      <p> To join the event, please pay the <%=@event.price / 100 %></p>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Pay to Party"
+          data-amount="0"
+          data-currency="eur"
+          data-locale="auto"></script>
+	<% end %>
+<% else %>
+	<br><strong> Past event, sorry bruuhhh </stong></br>
+<% end %>

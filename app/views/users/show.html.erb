@@ -1,0 +1,33 @@
+<h1> Profil of <%=@user.username %></h1>
+
+<h4> email: <%=@user.email %></h4> <br>
+
+
+<h2> List of events created </h2>
+<% @user.created_events.each do |event| %>	
+	<strong><p>Description: <%= event.description %></p></strong>
+	<p>Date event: <%= event.date %></p>
+	<p>Event place: <%= event.place %></p>
+	
+	<p><%= link_to "See the Event", event_path  %></p>
+
+ -------------------------------
+  <br>
+	<%end%>
+
+
+<br>
+<h3> Events attended </h3> <br>
+	<% @user.attended_events.each do |event| %>
+	
+		<% if event.date < Date.today %>
+	<strong><p>Description: <%= event.description %></p></strong>
+	<p>Date event: <%= event.date %></p>
+	<p>Event place: <%= event.place %></p>
+	<p>Créateur : <%= event.creator.username %> </p>
+
+ -------------------------------
+  <br>
+		<%end%>
+
+	<%end%>
